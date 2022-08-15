@@ -3,7 +3,9 @@
 ### By: Samuel Hewitt
 
 ## Problem Statement
-Work in progress...
+Music streaming services have changed the metrics for a song/artist to be considered successful.
+
+Predict popularity of a song based on it's audio features
 
 ## Data:
 Work in progress...
@@ -20,6 +22,7 @@ Work in progress...
 |Feature|Type|Dataset|Description|
 |---|---|---|---|
 |**artist_name**|*str*|Spotify|The name of the artist.|
+|**artist_genre**|*str*|Spotify|The genre(s) of the artist.|
 |**track_name**|*str*|Spotify|The name of the track.|
 |**track_id**|*str*|Spotify|The Spotify ID for the track.|
 |**popularity**|*int*|Spotify|The popularity of the track. The value will be between 0 and 100, with 100 being the most popular. The popularity of a track is a value between 0 and 100, with 100 being the most popular. The popularity is calculated by algorithm and is based, in the most part, on the total number of plays the track has had and how recent those plays are.|
@@ -36,6 +39,8 @@ Work in progress...
 |**tempo**|*float*|Spotify|The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.|
 |**duration_ms**|*int*|Spotify|The duration of the track in milliseconds.|
 |**time_signature**|*int*|Spotify|An estimated time signature. The time signature (meter) is a notational convention to specify how many beats are in each bar (or measure). The time signature ranges from 3 to 7 indicating time signatures of "3/4", to "7/4".|
+
+**NOTE:** artist_genre was one-hot encoded for modeling. Doing so changes shape of dataframe from (10,064, 16) to (10,064, 2,588)
 
 ## Modeling:
 
@@ -60,4 +65,5 @@ Work in progress...
 
 ## Next Steps:
 
-Work in progress...
+Repull data periodically as popularity changes day-to-day. 
+Errors with API where genre is not present for multiple artists
