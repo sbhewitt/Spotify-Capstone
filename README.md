@@ -1,19 +1,20 @@
-# Using Spotify API to Analyze Audio Features & Song Popularity
+# Using Spotify API to Explore Audio Features, Song Popularity, and Genres
 
 ### By: Samuel Hewitt
 
 ## Problem Statement
-Music streaming services have changed the metrics for a song/artist to be considered successful.
+Music streaming services have changed the metrics for a song/artist to be considered successful. The goal of this project is to determine if one can predict a song's popularity and success. I also aim to determine if a song's genre can be predicted based on it's audio features with disregard to the artist who made it.
 
-Predict popularity of a song based on it's audio features
 
 ## Data:
-Work in progress...
+Data collected using Spotify’s Web API in hand with Spotipy, a lightweight Python library for Spotify Web API. Both require client credentials to collect data. Song data from past 10 years have been collected
+
 
 ## Software Requirements:
 All data cleaning and modeling was run in Python using the following libraries:
 Pandas, skLearn, matplotlib, Seaborn
-Work in progress...
+
+Spotify Web Developer client credentials required for data collection
 
 ## Data Dictionaries
 
@@ -44,26 +45,42 @@ Work in progress...
 
 ## Modeling:
 
-Work in progress...
+### Regression Models:
 
-### Regression Model:
+#### Modeling - Popularity by Audio Features
+The goal of the regression model was to predict a song's popularity based on its audio features. The best performing model was Random Forest. This model had a mean squared error of 621.52 and a training and testing r2 score of 0.9069 and 0.3497 respectively.
 
-Work in progress...
+#### Modeling - Popularity by Audio Features & Genre
+The goal of the regression model was to predict a song's popularity based on its audio features and genre. Nearly ~1,300 genres were one hot-encoded. The best performing model was RidgeCV. This model had a mean squared error of 285.31 and a training and testing r2 score of 0.8124 and 0.7015 respectively.
+
+### Clustering:
+
+![plot](./images/dance_vs_pop_clustering.png)
+
+The goal of KMeans clustering was to find different clusters of data correlating danceability to popularity. The largest silhouette score was of 0.4905 occured at 2 clusters. There is a clear gap in popularity between scores ~40 and ~50. Either songs are popular or not so popular, with very little in the middle ground. Very few songs have perfect popularity scores and are highly unlikely to remain there after some time. Given the timeframe of the data collected, it makes sense that most are on the lower end as music trends change over time. Other than people listening to songs from a previous decade for nostalgia, they are rarely considered highly popular.
 
 ### Classification Models:
 
-Work in progress...
-  
-### Clustering:
+Two separate models were set up for classification, the first being the 'Classifying Popularity Based on Audio Features and Genre' and the second being 'Classifying Genre Based on Audio Features'. For this classification, the best model was a Random Forest model, with an accuracy score of 0.899 for the test data set.
 
-Work in progress...
+![plot](./images/rf_simple_cmatrix.png)
+
+The second classification model was a multiclass model, where genres were split up. Spotify gives an artist's genres in a list (ie Frank Ocean has the following genres: hip hop, lgbtq+ hip hop, neo soul, and pop) Each artist's tracks were split into each genre. Doing so more than tripled the size of the data frame. Random Forest has the best accuracy score on the training set, with a score of 0.3416, but was severly overfit with test accuracy score of 0.0225. The best model was Logisitc Regression, with an accuracy score of 0.0758. 
+
+These results show that despite Spotify's audio features, they cannot be used to accurately determine a song's genre.
+  
+
+### Tableau Dashboard
+
+https://public.tableau.com/views/SpotifyCapstonev2/Dashboard2?:language=en-US&publish=yes&:display_count=n&:origin=viz_share_link
 
 
 ## Conclusion:
 
-Work in progress...
+There are many aspects that goes into a song's popularity, with a significant amount of them being unpredictable. Other medias influence a song's popularity. TikTok, movies, and televison shows all affect a song's popularity. An excellent example is Kate Bush's 'Running Up That Hill', which its popularity resurgence propelled by Netflix's fourth season of 'Stranger Things' despite being originally released in 1985. Although it is hard to predict a song's popularity, an artist's genre does have influence on popularity. Pop, hip hop, and rap are the most populary genres currently, which differs from the most popular genres of 1985.
 
 ## Next Steps:
 
-Repull data periodically as popularity changes day-to-day. 
-Errors with API where genre is not present for multiple artists
+* Repull data periodically as popularity changes day-to-day. 
+* Errors with API where genre is not present for multiple artists, may be solved with data repulling
+* Collaboration with other medias to determine trends and potential prospects for a song to gain popularity (ie used in popular show or new TikTok trend)
